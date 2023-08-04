@@ -7,6 +7,7 @@ import {IERC20} from "@aave/core-v3/contracts/dependencies/openzeppelin/contract
 
 contract AaveFlashLoan is FlashLoanSimpleReceiverBase {
     error NotOwner();
+    error NotPool();
 
     address payable owner;
 
@@ -32,6 +33,10 @@ contract AaveFlashLoan is FlashLoanSimpleReceiverBase {
     ) external override returns (bool) {
         // we have the borrowed funds
         // custom logic
+
+        if (msg.sender != address(POOL)) {
+            revert NotPool();
+        }
 
         uint amountOwed = amount + premium;
         IERC20(asset).approve(address(POOL), amountOwed);
