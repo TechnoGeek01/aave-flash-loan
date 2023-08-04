@@ -38,6 +38,10 @@ contract AaveFlashLoan is FlashLoanSimpleReceiverBase {
             revert NotPool();
         }
 
+        if(initiator!=address(this)){
+            revert NotOwner();
+        }
+
         uint amountOwed = amount + premium;
         IERC20(asset).approve(address(POOL), amountOwed);
 
