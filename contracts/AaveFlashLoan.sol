@@ -49,18 +49,18 @@ contract AaveFlashLoan is FlashLoanSimpleReceiverBase {
     }
 
     function requestFlashLoan(address _token, uint _amount) public {
-        address receiverAddress = address(this);
-        address asset = _token;
-        uint amount = _amount;
-        bytes memory params = "";
-        uint16 referralCode = 0;
+        // address receiverAddress = address(this);
+        // address asset = _token;
+        // uint amount = _amount;
+        // bytes memory params = "";
+        // uint16 referralCode = 0;
 
         POOL.flashLoanSimple(
-            receiverAddress,
-            asset,
-            amount,
-            params,
-            referralCode
+            address(this),
+            _token,
+            _amount,
+            "",
+            0
         );
     }
 
